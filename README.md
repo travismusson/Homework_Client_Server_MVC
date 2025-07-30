@@ -22,3 +22,6 @@
 
 *Chat Hub (Client 2) Client Interaction*
 <img width="875" height="615" alt="image" src="https://github.com/user-attachments/assets/a501e278-22b6-40d4-9a17-eb7c6a22e53b" />
+
+*DB*
+<img width="793" height="717" alt="image" src="https://github.com/user-attachments/assets/3406b5d3-cc68-4d59-9b9d-f489f2e95512" />
