@@ -1,0 +1,65 @@
+﻿@{
+	ViewBag.Title = "Chat Hub";
+	var username = ViewBag.Username;
+}
+@if (TempData["Notification"] != null)
+{
+	<div class="alert alert-success">
+		@TempData["Notification"]
+	</div>
+}
+<!--Header-->
+<div class="container mt-2">
+	<h1 class="text-primary">Welcome, @username</h1>
+	<!--chat messages-->
+	<div class="border rounded form-control">
+		<ul id="MessageList" class="list-unstyled"></ul>
+	</div>
+</div>
+<!--User control-->
+<div>
+	<label class="mt-4">Message:</label>
+	<!--username is hidden as they login-->
+	<input type="hidden" id="username" value="@username" />
+	<input type="text" class="form-control" id="message" placeholder="Type A Message" />
+	<button class="btn btn-primary mt-2" id="SendMessage">Send</button>
+</div>
+<!-- importing SignalR library for client -->
+<script src="
+https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.7/dist/browser/signalr.min.js		
+"></script>
+
+<script>
+	var connection = new signalR.HubConnectionBuilder().withUrl("/chat-hub").build();		//setup connection string
+
+	connection.start()
+		.then(function () {
+			var user = document.getElementById("username").value;
+			connection.invoke("AnnounceJoin", user);		//attempting announcement message
+		})
+		.catch(function (err) {		//catch any errors
+			alert("Error while starting connection: " + err.toString());
+			return console.error(err.toString());
+		});
+
+	
+
+	document.getElementById("SendMessage").addEventListener("click", function () {
+		//assign var
+		var user = document.getElementById("username").value; 
+		var message = document.getElementById("message").value;
+		//create a connection invoke
+		connection.invoke("SendMessage", user, message).catch(function (err) {		//essential it matches hub
+			return console.error(err.toString());
+		});
+		document.querySelector("input[type='text']").value = ""; // Clear input field
+	});
+
+	connection.on("ReceiveMessage", function(user, message){
+		var encodedMsg = user + " says: " + message;		//format message"
+		var li = document.createElement("li");		//create a list item"
+
+		li.textContent = encodedMsg;		//set text content of list item
+		document.getElementById("MessageList").appendChild(li);		//append list item to message list
+	})
+</script>
