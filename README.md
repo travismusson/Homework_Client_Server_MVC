@@ -1,5 +1,5 @@
 # Homework
-- Home Work for basic client server
+- Home Work for basic client server utilizing MVC Architecture
 
 *Potential Improvements*
 - Add Hashing for both password and user info
