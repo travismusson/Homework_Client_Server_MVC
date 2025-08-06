@@ -1,4 +1,10 @@
 # Homework
+- Home Work for basic client server
+
+*Potential Improvements*
+- Add Hashing for both password and user info
+- Implement more features for user to interact with
+
 *Landing Page*
 <img width="1074" height="694" alt="image" src="https://github.com/user-attachments/assets/ef23d67e-45bd-431a-8d18-7b970189a30e" />
 
